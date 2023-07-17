@@ -1,83 +1,51 @@
 "use client";
 import Title from "@/app/components/Title";
 import useBooks from "./hooks/useBooks";
-import Image from "next/image";
+import Book from "./components/Book";
 
 export default function Home() {
   const {
     books,
     readingList,
-    handleAddToReadingList,
     handleRemoveFromReadingList,
+    handleAddToReadingList,
   } = useBooks();
-
   return (
     <main className="flex min-h-screen items-center justify-between">
-      <div className="w-3/4 h-screen p-4 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
-        {books.length === 0 ? (
-          <div>No books to display</div>
-        ) : (
-          books.map((book) => (
-            <div
-              key={`library-${book.ISBN}`}
-              id={`library-${book.ISBN}`}
-              className="relative animate-jump-in animate-ease-in-out max-h-80"
-            >
-              <Image
-                src={book.cover}
-                width={200}
-                height={300}
-                alt={book.title}
-                className="rounded-lg object-cover"
-              ></Image>
-              <div
-                className="absolute top-0 left-0 bg-black bg-opacity-0 w-full h-full opacity-0 hover:opacity-100 hover:bg-opacity-90 
-              transition-opacity duration-300 ease-in-out 
-              flex flex-col justify-center items-center gap-y-4
-              "
-              >
-                <p className="balance text-center">{book.title}</p>
-                <button
-                  onClick={() => {
-                    const el = document.querySelector(`#library-${book.ISBN}`);
-                    el?.classList.add(
-                      "animate-jump-out",
-                      // "animate-duration-300",
-                      "animate-ease-in-out"
-                    );
-                    setTimeout(() => {
-                      handleAddToReadingList(book.ISBN);
-                    }, 300);
-                  }}
-                  className="bg-yellow-800 px-4 py-2 rounded placeholder-opacity-100"
-                >
-                  Add to Reading List
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-      <div className="w-1/4 bg-slate-800 h-screen p-4">
+      <section className="w-3/4 h-screen p-4">
+        <Title text="Library" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+          {books?.length === 0 ? (
+            <div>No books to display</div>
+          ) : (
+            books?.map((book) => (
+              <Book
+                key={`library-${book.ISBN}`}
+                book={book}
+                type="library"
+                action={handleAddToReadingList}
+              />
+            ))
+          )}
+        </div>
+      </section>
+      <section className="w-1/4 bg-slate-800 h-screen p-4">
         <Title text="Reading List" />
-        {readingList.length === 0 ? (
-          <div>No books in reading list</div>
-        ) : (
-          readingList.map((book) => (
-            <div key={`reading-${book.ISBN}`} className="flex gap-x-4">
-              {" "}
-              <p>{book.title}</p>
-              <button
-                onClick={() => {
-                  handleRemoveFromReadingList(book.ISBN);
-                }}
-              >
-                ✖️
-              </button>
-            </div>
-          ))
-        )}
-      </div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-2">
+          {readingList.length === 0 ? (
+            <div>No books in reading list</div>
+          ) : (
+            readingList.map((book) => (
+              <Book
+                key={`readingList-${book.ISBN}`}
+                book={book}
+                type="readingList"
+                action={handleRemoveFromReadingList}
+              />
+            ))
+          )}
+        </div>
+      </section>
     </main>
   );
 }
