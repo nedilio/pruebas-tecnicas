@@ -1,10 +1,11 @@
 ﻿import { create } from "zustand";
-import { Book, Library } from "../lib/types";
+import { Book } from "../lib/types";
 
 const initialLibrary = (async function () {
-  const response = await fetch("/books.json");
-  const { library } = (await response.json()) as Library;
-  return library.map(({ book }) => book as Book);
+  // const response = await fetch("/books.json");
+  // const { library } = (await response.json()) as Library;
+  // return library.map(({ book }) => book as Book);
+  return [];
 })();
 
 interface BooksState {
