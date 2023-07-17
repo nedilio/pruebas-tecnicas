@@ -18,7 +18,11 @@ export default function Home() {
           <div>No books to display</div>
         ) : (
           books.map((book) => (
-            <div key={`library-${book.ISBN}`} className="relative">
+            <div
+              key={`library-${book.ISBN}`}
+              id={`library-${book.ISBN}`}
+              className="relative animate-jump-in animate-ease-in-out max-h-80"
+            >
               <Image
                 src={book.cover}
                 width={200}
@@ -34,7 +38,17 @@ export default function Home() {
               >
                 <p className="balance text-center">{book.title}</p>
                 <button
-                  onClick={() => handleAddToReadingList(book.ISBN)}
+                  onClick={() => {
+                    const el = document.querySelector(`#library-${book.ISBN}`);
+                    el?.classList.add(
+                      "animate-jump-out",
+                      // "animate-duration-300",
+                      "animate-ease-in-out"
+                    );
+                    setTimeout(() => {
+                      handleAddToReadingList(book.ISBN);
+                    }, 300);
+                  }}
                   className="bg-yellow-800 px-4 py-2 rounded placeholder-opacity-100"
                 >
                   Add to Reading List
@@ -53,7 +67,11 @@ export default function Home() {
             <div key={`reading-${book.ISBN}`} className="flex gap-x-4">
               {" "}
               <p>{book.title}</p>
-              <button onClick={() => handleRemoveFromReadingList(book.ISBN)}>
+              <button
+                onClick={() => {
+                  handleRemoveFromReadingList(book.ISBN);
+                }}
+              >
                 ✖️
               </button>
             </div>
