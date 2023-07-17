@@ -5,7 +5,7 @@ import Book from "./components/Book";
 
 export default function Home() {
   const {
-    books,
+    library,
     readingList,
     handleRemoveFromReadingList,
     handleAddToReadingList,
@@ -15,10 +15,10 @@ export default function Home() {
       <section className="w-3/4 h-screen p-4">
         <Title text="Library" />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
-          {books?.length === 0 ? (
+          {library?.length === 0 ? (
             <div>No books to display</div>
           ) : (
-            books?.map((book) => (
+            library?.map((book) => (
               <Book
                 key={`library-${book.ISBN}`}
                 book={book}

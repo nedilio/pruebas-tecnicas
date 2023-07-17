@@ -3,7 +3,7 @@ import { useBooksStore, useReadingListStore } from "../store/books";
 import { Book, Library } from "../lib/types";
 
 function useBooks() {
-  const books = useBooksStore((state) => state.library);
+  const library = useBooksStore((state) => state.library);
   const readingList = useReadingListStore((state) => state.readingList);
   const fetchBooks = useBooksStore((state) => state.fetchBooks);
 
@@ -19,7 +19,7 @@ function useBooks() {
   );
 
   const handleAddToReadingList = (id: string) => {
-    const bookToAdd = books.find((book) => book.ISBN === id) as Book;
+    const bookToAdd = library.find((book) => book.ISBN === id) as Book;
     addBookToReadingList(bookToAdd);
     removeBookFromLibrary(id);
   };
@@ -52,7 +52,7 @@ function useBooks() {
   }, [fetchBooks]);
 
   return {
-    books,
+    library,
     readingList,
     handleAddToReadingList,
     handleRemoveFromReadingList,
