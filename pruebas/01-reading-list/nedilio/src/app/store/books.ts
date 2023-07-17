@@ -1,17 +1,10 @@
 ﻿import { create } from "zustand";
-import { Book } from "../lib/types";
-
-const initialLibrary = (async function () {
-  // const response = await fetch("/books.json");
-  // const { library } = (await response.json()) as Library;
-  // return library.map(({ book }) => book as Book);
-  return [];
-})();
+import { Book, Library } from "../lib/types";
 
 interface BooksState {
   library: Book[];
   readingList: Book[];
-  fetchBooks: () => void;
+  fetchBooks: (books: Book[]) => void;
   removeBookFromLibrary: (id: string) => void;
   addBookToLibrary: (book: Book) => void;
   addBookToReadingList: (book: Book) => void;
@@ -21,7 +14,7 @@ interface BooksState {
 export const useBooksStore = create<BooksState>()((set) => ({
   library: [],
   readingList: [],
-  fetchBooks: async () => set({ library: await initialLibrary }),
+  fetchBooks: async (books) => set({ library: books }),
   removeBookFromLibrary: (id: string) =>
     set((state) => ({
       library: state.library.filter((book) => book.ISBN !== id),

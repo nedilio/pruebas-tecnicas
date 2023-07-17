@@ -2,6 +2,10 @@
   library: LibraryItem[];
 }
 
+export interface LibraryItem {
+  book: Book;
+}
+
 export interface Book {
   title: string;
   pages: number;

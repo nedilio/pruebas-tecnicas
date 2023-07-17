@@ -1,11 +1,11 @@
 ﻿import { useEffect } from "react";
 import { useBooksStore } from "../store/books";
-import { Book } from "../lib/types";
+import { Book, Library } from "../lib/types";
 
 function useBooks() {
   const books = useBooksStore((state) => state.library);
   const readingList = useBooksStore((state) => state.readingList);
-  const initialState = useBooksStore((state) => state.fetchBooks);
+  const fetchBooks = useBooksStore((state) => state.fetchBooks);
 
   const removeBookFromLibrary = useBooksStore(
     (state) => state.removeBookFromLibrary
@@ -30,8 +30,15 @@ function useBooks() {
     addBookToLibrary(bookToRemove);
   };
   useEffect(() => {
-    initialState();
-  }, [initialState]);
+    (async function () {
+      //   const libraryLocalStorage = window.localStorage.getItem("library");
+      //   console.log(libraryLocalStorage);
+      const response = await fetch(`/books.json`);
+      const { library } = (await response.json()) as Library;
+      const books = library.map(({ book }) => book as Book);
+      fetchBooks(books);
+    })();
+  }, [fetchBooks]);
 
   return {
     books,
