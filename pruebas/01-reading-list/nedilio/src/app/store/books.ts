@@ -1,5 +1,5 @@
 ﻿import { create } from "zustand";
-import { Book, Library } from "../lib/types";
+import { Book } from "../lib/types";
 
 interface BooksState {
   library: Book[];
