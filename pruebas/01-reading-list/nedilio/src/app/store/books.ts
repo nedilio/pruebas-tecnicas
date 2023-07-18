@@ -28,8 +28,8 @@ export const useBooksStore = create<BooksState>()(
         set((state) => ({ library: [...state.library, book] })),
     }),
     {
-      name: "library-storage", // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+      name: "library-storage",
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );
@@ -46,8 +46,8 @@ export const useReadingListStore = create<ReadingListState>()(
         })),
     }),
     {
-      name: "readingList-storage", // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+      name: "readingList-storage",
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

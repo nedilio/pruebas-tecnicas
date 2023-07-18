@@ -1,8 +1,11 @@
-﻿import { useEffect } from "react";
+﻿import { useEffect, useState } from "react";
 import { useBooksStore, useReadingListStore } from "../store/books";
 import { Book, Library } from "../lib/types";
 
 function useBooks() {
+  const [genres, setGenres] = useState<string[]>([]);
+  console.log(genres);
+
   const library = useBooksStore((state) => state.library);
   const readingList = useReadingListStore((state) => state.readingList);
   const fetchBooks = useBooksStore((state) => state.fetchBooks);
@@ -49,9 +52,12 @@ function useBooks() {
         }
       }
     })();
-  }, [fetchBooks]);
+    const genres = Array.from(new Set(library.map((book) => book.genre)));
+    setGenres(genres);
+  }, [library, fetchBooks, readingList]);
 
   return {
+    genres,
     library,
     readingList,
     handleAddToReadingList,
