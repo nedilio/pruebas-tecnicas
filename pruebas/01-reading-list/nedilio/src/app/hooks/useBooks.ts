@@ -54,7 +54,7 @@ function useBooks() {
     })();
     const genres = Array.from(new Set(library.map((book) => book.genre)));
     setGenres(genres);
-  }, [library, fetchBooks, readingList]);
+  }, [fetchBooks, library]);
 
   return {
     genres,

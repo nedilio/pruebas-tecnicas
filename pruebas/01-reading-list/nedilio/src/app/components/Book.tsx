@@ -17,7 +17,6 @@ const Book = ({ book, type, action }: BookProps) => {
         id={`${type}-${book.ISBN}`}
         className="relative animate-jump-in animate-ease-in-out max-h-80"
       >
-        <p>{book.genre}</p>
         <Image
           src={book.cover}
           width={200}

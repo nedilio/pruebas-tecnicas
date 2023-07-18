@@ -1,8 +1,8 @@
 "use client";
 import Title from "@/app/components/Title";
-import useBooks from "./hooks/useBooks";
-import Book from "./components/Book";
-import FilterSelector from "./components/FilterSelector";
+import useBooks from "@/app/hooks/useBooks";
+import Book from "@/app/components/Book";
+import FilterSelector from "@/app/components/FilterSelector";
 import { useState } from "react";
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
           ? ` Mostrando ${filteredLibrary.length} ${
               filteredLibrary.length === 1 ? "libro" : "libros"
             } con el genero ${filter}`
-          : "no hay filtro de genero"}
+          : `Mostrando todos los libros (${library.length})`}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
           {filteredLibrary?.length === 0 ? (
             <div>No books to display</div>
